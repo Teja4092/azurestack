@@ -4,7 +4,6 @@ name: til-iac-workflow
 
 # Controls when the workflow will run
 on:
-    workflow_dispatch:
     push:
       branches:
           - main
@@ -12,7 +11,7 @@ on:
       # paths:
       #     - 'bicep/projects/deploymentstacks/**'
       #     - '.github/workflows/iac-til-iac-workflow.yml'
-
+    workflow_dispatch:
 permissions:
     id-token: write 
     contents: read
