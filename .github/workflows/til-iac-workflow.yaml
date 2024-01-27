@@ -1,6 +1,6 @@
 # TIL IaC - Workflow
 # Description: This pipeline build and deploy the infrastructure for the TIL IaC Demo project
-name: til-iac-workflow
+name: til-iac-workflow-2
 
 # Controls when the workflow will run
 on:
