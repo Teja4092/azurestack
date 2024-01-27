@@ -21,7 +21,7 @@ jobs:
         run: |
           ls -R
       
-      # - name: 'Stack Deployment'
-      #   run: |
-      #     az stack sub create --name "rg-stack-deployment"  --template-file ./main.bicep --location "centralindia" --delete-all --deny-settings-mode none  
-      #   working-directory: '${{github.workspcae }}/bicep/projects/deploymentstacks'
+      - name: 'Stack Deployment'
+        run: |
+          az stack sub create --name "rg-stack-deployment"  --template-file ./main.bicep --location "centralindia" --delete-all --deny-settings-mode none  
+        working-directory: '${{github.workspcae }}/bicep/projects/deploymentstacks'
