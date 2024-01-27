@@ -48,7 +48,7 @@ module rg '../../modules/resourcegroup.bicep' ={
 }
 
 // Storage account Module
-module stg '../../modules/storage.bicep' = {
+module stg '../../modules/storage.bicep' = {  
   scope: resourceGroup
   name: '${uniqueString(deployment().name, location)}-stg' 
   params: {
