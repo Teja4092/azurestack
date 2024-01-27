@@ -51,8 +51,3 @@ jobs:
         run: |
           az account show
           az group list
-
-      # - name: Stack Deployment
-      #   working-directory: '${{ github.workspace }}/bicep/projects/deploymentstacks'
-      #   run: |
-      #     	az stack sub create --name "rg-stack-deployment"  --template-file ./main.bicep --location "centralindia" --delete-all --deny-settings-mode none
