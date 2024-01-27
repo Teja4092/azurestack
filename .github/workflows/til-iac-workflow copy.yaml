@@ -22,20 +22,31 @@ permissions:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  build:
+    uses: .github/workflows/iac-ci-template.yml
+    with:
+      environment: de
+      location: centralindia
+      project: stack
+      projectFolder: deploymentstacks
+    secrets:
+      client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    
+  # release:
+  #   # needs: build
+  #   environment: stack
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: 'Az CLI login'
+  #       uses: azure/login@v1
+  #       with:
+  #         client-id: ${{ secrets.AZURE_CLIENT_ID }}
+  #         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+  #         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-  release:
-    # needs: build
-    environment: stack
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Az CLI login'
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: 'Run az commands'
-        run: |
-          az account show
-          az group list
+  #     - name: 'Run az commands'
+  #       run: |
+  #         az account show
+  #         az group list
