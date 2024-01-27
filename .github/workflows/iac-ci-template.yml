@@ -1,47 +1,47 @@
-name: build
-on:
-  workflow_call:
-    inputs:
-      environment:
-        description: Environment to deploy to
-        required: true
-        type: string
-      location:
-        description: Location to deploy to
-        required: true
-        type: string
-      project:
-        description: Project acronym
-        required: true
-        type: string
-      projectFolder:
-        description: Project Folder
-        required: true
-        type: string
-    secrets:
-      AZURE_CLIENT_ID:
-        required: true
-      AZURE_TENANT_ID:
-        required: true
-      AZURE_SUBSCRIPTION_ID:
-        required: true
-permissions:
-  id-token: write
-  contents: read
-jobs:
-  stack:
-    environment: ${{ inputs.environment }}
-    name: Stack Deployment
-    runs-on: ubuntu-latest
-    steps:
-      - name: azure login
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          enable-AzPSSession: true
-      - name: Stack Deployment
-        run: >
-          	az stack sub create --name "rg-${{ inputs.project }}-deployment"  --template-file ./main.bicep --location "centralindia" --delete-all --deny-settings-mode none
-        working-directory: ${{ inputs.projectFolder }}
+# name: build
+# on:
+#   workflow_call:
+#     inputs:
+#       environment:
+#         description: Environment to deploy to
+#         required: true
+#         type: string
+#       location:
+#         description: Location to deploy to
+#         required: true
+#         type: string
+#       project:
+#         description: Project acronym
+#         required: true
+#         type: string
+#       projectFolder:
+#         description: Project Folder
+#         required: true
+#         type: string
+#     secrets:
+#       AZURE_CLIENT_ID:
+#         required: true
+#       AZURE_TENANT_ID:
+#         required: true
+#       AZURE_SUBSCRIPTION_ID:
+#         required: true
+# permissions:
+#   id-token: write
+#   contents: read
+# jobs:
+#   stack:
+#     environment: ${{ inputs.environment }}
+#     name: Stack Deployment
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: azure login
+#         uses: azure/login@v1
+#         with:
+#           client-id: ${{ secrets.AZURE_CLIENT_ID }}
+#           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+#           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+#           enable-AzPSSession: true
+#       - name: Stack Deployment
+#         run: >
+#           	az stack sub create --name "rg-${{ inputs.project }}-deployment"  --template-file ./main.bicep --location "centralindia" --delete-all --deny-settings-mode none
+#         working-directory: ${{ inputs.projectFolder }}
