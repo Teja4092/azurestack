@@ -43,6 +43,7 @@ jobs:
           echo test, and deploy your project.
 
   release:
+    needs: build
     environment: stack
     runs-on: self-hosted
     steps:
