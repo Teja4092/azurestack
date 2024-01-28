@@ -21,7 +21,16 @@ jobs:
         run: |
           ls -R
       
-      - name: 'Stack Deployment'
+      - name: 'Stack Creation'
         run: |
           cd bicep/projects/deploymentstacks
-          az stack sub create --name "rg-stack-deployment"  --template-file ./main.bicep --location "centralindia" --delete-all --deny-settings-mode none  
+          az stack sub create --name "rg-stack-deployment"  --template-file ./main.bicep --location "centralindia" --delete-all --deny-settings-mode none
+
+      - name: 'Stack Deletion'
+        run: |
+          cd bicep/projects/deploymentstacks
+          az stack sub delete --name "rg-stack-deployment"  --delete-all --yes
+
+      - name: 'Message'
+        run: |
+          echo "You are good to Go for Dev"
