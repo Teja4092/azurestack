@@ -23,5 +23,5 @@ jobs:
       
       - name: 'Stack Deployment'
         run: |
+          cd bicep/projects/deploymentstacks
           az stack sub create --name "rg-stack-deployment"  --template-file ./main.bicep --location "centralindia" --delete-all --deny-settings-mode none  
-        working-directory: '${{github.workspcae }}/bicep/projects/deploymentstacks'
