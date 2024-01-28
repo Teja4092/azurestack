@@ -1,0 +1,36 @@
+name: Run Azure Login with OIDC
+on: [push]
+
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: stack
+    steps:
+      - name: 'Az CLI login'
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - uses: actions/checkout@v3
+
+      - name: 'List files'
+        run: |
+          ls -R
+      
+      - name: 'Stack Creation'
+        run: |
+          cd bicep/projects/deploymentstacks
+          az stack sub create --name "rg-stack-deployment"  --template-file ./main.bicep --location "centralindia" --delete-all --deny-settings-mode none
+
+      - name: 'Stack Deletion'
+        run: |
+          cd bicep/projects/deploymentstacks
+          az stack sub delete --name "rg-stack-deployment"  --delete-all --yes
+
+      - name: 'Message'
+        run: |
+          echo "You are good to Go for Dev"

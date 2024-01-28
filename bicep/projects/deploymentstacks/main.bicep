@@ -10,11 +10,14 @@ targetScope = 'subscription'
 @description('Required. environment')
 param environment string = 'de'
 
-@description('resourceGroup Name')
-param rgname string = 'rg-sw-${environment}-cin'
+@description('Required. environment')
+param project string = 'stack'
 
 @description('resourceGroup Name')
-param staccountname string = 'stswdecin'
+param rgname string = 'rg-${project}-${environment}-cin'
+
+@description('resourceGroup Name')
+param staccountname string = 'st${project}${environment}cin'
 
 @allowed([
   'Standard_LRS'
@@ -30,7 +33,7 @@ param storageSKU string = 'Standard_LRS'
 
 param location string = 'centralindia'
 
-param appinsightsname string = 'appi-starwars'
+param appinsightsname string = 'appi-${project}-${environment}-cin'
 
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2023-07-01' = {
   name: rgname
